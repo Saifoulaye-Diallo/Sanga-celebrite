@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<h1 class="title p-1 text-center">Sangaredi Célébrité</h1>
+<div class="row col-md-12">
+    <div class="col-md-9">
+      <!-- Carousel wrapper -->
+<div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
+
+  <!-- Inner -->
+  <div class="carousel-inner py-4">
+    <!-- Single item -->
+    <div class="carousel-item active">
+      <div class="container">
+        <div class="row">
+          {% for article in articles %}
+          <div class="col-lg-4">
+            <div class="card mt-3 ">
+                <p class="date">Ecris le {{ article.creatAt | date("m/d/Y") }} à {{ article.creatAt | date("H:m") }}</p>
+
+              <img
+                src="/assets/blog/images/{{ article.image }}" alt="{{ article.image }}"
+                class="card-img-top"
+                height="200px"
+                />
+              <div class="card-body">
+                <h5 class="card-title">{{ article.title }}</h5>
+                <a href="{{ path('show',{'id' : article.id})}}" class="btn btn-primary">En savoir plus</a>
+              </div>
+            </div>
+          </div>
+         {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Inner -->
+</div>
+<!-- Carousel wrapper -->
+    </div>
+    <div class="col-md-3">
+        <h2>Catégories</h2>
+        <ul class="list-group">
+        {% for categorie in categories %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{{ path('show_article',{'id' : categorie.id})}}">
+                    {{ categorie.title }}
+                        <span class="badge bg-primary rounded-pill">{{ categorie.articles | length }} article(s)</span>
+                </a>
+            </li>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}
